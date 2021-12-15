@@ -18,7 +18,6 @@ export default function Question({ currentTopic, setCurrentTopic }: any) {
     const formRef = useRef(null)
 
     useEffect(() => {
-        console.log(currentQuestion)
         if (currentQuestion) window.localStorage.setItem('currentQuestion', currentQuestion.toString())
         setCurrentQuestionBody(getQuestionByIndex(currentQuestion))
     }, [currentQuestion])
