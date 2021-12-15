@@ -17,9 +17,7 @@ function App() {
             className="App"
             style={{
                 padding:
-                    isMobile && currentTopic
-                        ? '0 30px'
-                        : !isMobile && !currentTopic
+                    (isMobile && currentTopic) || (!isMobile && !currentTopic)
                         ? '0 30px'
                         : isMobile
                         ? '0 30px'

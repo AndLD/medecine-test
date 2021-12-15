@@ -1,5 +1,6 @@
 import { Button } from 'antd'
 import { useEffect, useRef, useState } from 'react'
+import { isMobile } from 'react-device-detect'
 
 import data from '../assets/data.json'
 
@@ -42,7 +43,9 @@ export default function Question({ currentTopic, setCurrentTopic }: any) {
                 Вопрос {currentQuestion + 1} / {getQuestionsLength()}
             </h2>
             <div style={{ background: 'white', padding: '15px' }}>
-                <h3>{currentQuestionBody?.question}</h3>
+                <h3 style={isMobile ? { maxHeight: '30vh', overflowY: 'scroll' } : {}}>
+                    {currentQuestionBody?.question}
+                </h3>
                 <div style={{ height: 5, background: lineColor, transition: 'all ease 0.3s' }}></div>
                 <div style={{ fontSize: 15 }}>
                     <form ref={formRef}>
