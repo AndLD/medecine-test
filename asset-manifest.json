@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/medecine-test/static/css/main.8eeb07d1.css",
-    "main.js": "/medecine-test/static/js/main.117f63bb.js",
+    "main.js": "/medecine-test/static/js/main.1d59f436.js",
     "index.html": "/medecine-test/index.html",
     "main.8eeb07d1.css.map": "/medecine-test/static/css/main.8eeb07d1.css.map",
-    "main.117f63bb.js.map": "/medecine-test/static/js/main.117f63bb.js.map"
+    "main.1d59f436.js.map": "/medecine-test/static/js/main.1d59f436.js.map"
   },
   "entrypoints": [
     "static/css/main.8eeb07d1.css",
-    "static/js/main.117f63bb.js"
+    "static/js/main.1d59f436.js"
   ]
 }
