@@ -18,10 +18,40 @@ export default function Question({ currentTopic, setCurrentTopic }: any) {
 
     const formRef = useRef(null)
 
+    const [answers, setAnswers] = useState<any[]>([])
+
     useEffect(() => {
         if (currentQuestion) window.localStorage.setItem('currentQuestion', currentQuestion.toString())
         setCurrentQuestionBody(getQuestionByIndex(currentQuestion))
     }, [currentQuestion])
+
+    useEffect(() => {
+        setAnswers(
+            (currentQuestionBody &&
+                shuffle(
+                    currentQuestionBody.answers.map((answer, i) => (
+                        <div key={`answer-${i}`}>
+                            <input
+                                style={{ margin: 5 }}
+                                name="answer"
+                                type="radio"
+                                onClick={() => {
+                                    setNextBtnDisabled(!answer.isCorrect)
+                                    setLineColor(answer.isCorrect ? 'lime' : 'red')
+                                    // notification[answer.isCorrect ? 'success' : 'error']({
+                                    //     duration: 1,
+                                    //     type: answer.isCorrect ? 'success' : 'error',
+                                    //     message: answer.isCorrect ? 'Правильно!' : 'Неправильно!'
+                                    // })
+                                }}
+                            />
+                            {answer.text}
+                        </div>
+                    ))
+                )) ||
+                []
+        )
+    }, [currentQuestionBody])
 
     function getQuestionByIndex(i: number) {
         return data.find((peace) => peace.topic === currentTopic)?.questions[i]
@@ -48,27 +78,7 @@ export default function Question({ currentTopic, setCurrentTopic }: any) {
                 </h3>
                 <div style={{ height: 5, background: lineColor, transition: 'all ease 0.3s' }}></div>
                 <div style={{ fontSize: 15 }}>
-                    <form ref={formRef}>
-                        {currentQuestionBody?.answers.map((answer, i) => (
-                            <div key={`answer-${i}`}>
-                                <input
-                                    style={{ margin: 5 }}
-                                    name="answer"
-                                    type="radio"
-                                    onClick={() => {
-                                        setNextBtnDisabled(!answer.isCorrect)
-                                        setLineColor(answer.isCorrect ? 'lime' : 'red')
-                                        // notification[answer.isCorrect ? 'success' : 'error']({
-                                        //     duration: 1,
-                                        //     type: answer.isCorrect ? 'success' : 'error',
-                                        //     message: answer.isCorrect ? 'Правильно!' : 'Неправильно!'
-                                        // })
-                                    }}
-                                />
-                                {answer.text}
-                            </div>
-                        ))}
-                    </form>
+                    <form ref={formRef}>{answers}</form>
                 </div>
             </div>
             <div style={{ textAlign: 'center' }}>
@@ -91,7 +101,13 @@ export default function Question({ currentTopic, setCurrentTopic }: any) {
                 </Button>
             </div>
             <Button
-                style={{ position: 'absolute', bottom: 0, left: 0, margin: 20 }}
+                style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: isMobile ? 'none' : 0,
+                    right: isMobile ? 0 : 'none',
+                    margin: 20
+                }}
                 size="large"
                 className="menu-btn"
                 onClick={backBtnHandler}
